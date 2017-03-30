@@ -21,6 +21,8 @@
             <a href="{{path_for('sale')}}"><i class="fa ion-cube fa-lg"></i>
             <span>SALE</span></a>
         </li>
+    {# {% else %} #}
+        
         <li class="treeview">
             <a href="#"><i class="fa ion-ios-keypad fa-lg"></i>
                 <span>PRODUCT</span>
@@ -29,9 +31,9 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li><a href="{{ base_url() }}/product">LIST PRODUCT</a></li>
-                <li><a href="{{ base_url() }}/product/add">ADD PRODUCT</a></li>
-                <li><a href="{{ base_url() }}/product/inactive">PRODUCT INACTIVE</a></li>
+                <li><a href="{{path_for('product.active')}}">LIST PRODUCT</a></li>
+                <li><a href="{{path_for('product.add')}}">ADD PRODUCT</a></li>
+                <li><a href="{{path_for('product.inactive')}}">PRODUCT INACTIVE</a></li>
             </ul>
         </li>
         <li class="treeview">
@@ -68,7 +70,7 @@
         </ul> 
     </li>   
 </ul>
-
     {% endif %}
+
 
 </section>

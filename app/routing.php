@@ -98,33 +98,33 @@ $app->group('', function () use ($app,$namespace) {
 	// Router Profile ---------------------------------------------------------
 	$app->get('/user/profile', $namespace . '\UserController:getProfile')
 		->setName('user.profile');
-	$app->get('/user/admin', $namespace . '\ProfileController:getAdmin')
+	$app->get('/user/admin', $namespace . '\UserController:getAdmin')
 		->setName('user.admin');
 
 	// Router ListUser --------------------------------------------------------
 	$app->get('/user/listuser', 
-		$namespace . '\ProfileController:getProfileUser')
+		$namespace . '\UserController:getProfileUser')
 		->setName('user.listuser');
-	$app->get('/user/del/{id}', $namespace . '\ProfileController:softDelete')
+	$app->get('/user/del/{id}', $namespace . '\UserController:softDelete')
 		->setName('user.del');
-	$app->get('/user/edit/{id}', $namespace . '\ProfileController:getEditUser')
+	$app->get('/user/edit/{id}', $namespace . '\UserController:getEditUser')
 		->setName('user.edit');
 	$app->post('/user/edit/{id}', 
-		$namespace . '\ProfileController:postEditUser')
+		$namespace . '\UserController:postEditUser')
 		->setName('user.edit.post');
 
 	// Router Add User --------------------------------------------------------
-	$app->get('/user/adduser', $namespace . '\ProfileController:getAddUser')
+	$app->get('/user/adduser', $namespace . '\UserController:getAddUser')
 		->setName('user.adduser');
-	$app->post('/user/adduser', $namespace . '\ProfileController:postAddUser');
+	$app->post('/user/adduser', $namespace . '\UserController:postAddUser');
 
 	// Router get trash user --------------------------------------------------
-	$app->get('/user/trashuser', $namespace . '\ProfileController:getAllTrash')
+	$app->get('/user/trashuser', $namespace . '\UserController:getAllTrash')
 		->setName('user.trashuser');
 	$app->get('/user/delete/{id}', 
-		$namespace . '\ProfileController:hardDelete')->setName('user.delete');
+		$namespace . '\UserController:hardDelete')->setName('user.delete');
 	$app->get('/user/restore/{id}', 
-		$namespace . '\ProfileController:restoreData')
+		$namespace . '\UserController:restoreData')
 		->setName('user.restore');
 
 })->add(new AdminMiddleware($container));

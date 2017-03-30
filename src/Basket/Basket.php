@@ -2,22 +2,19 @@
 
 namespace App\Basket;
 
-use App\Models\ProductModel;
 use App\Core\Storage\SessionStorage;
+use App\Models\ProductModel;
 
-class Basket
-{
+class Basket {
 	protected $storage;
 	protected $product;
 
-	public function __construct(SessionStorage $storage, ProductModel $product)
-	{
+	public function __construct(SessionStorage $storage, ProductModel $product) {
 		$this->storage = $storage;
 		$this->product = $product;
 	}
 
-	public function add($product, $quantity)
-	{
+	public function add($product, $quantity) {
 		if ($this->has($product)) {
 			$quantity = $this->get($product)['quantity'] + $quantity;
 		}
@@ -25,43 +22,37 @@ class Basket
 		$this->update($product, $quantity);
 	}
 
-	public function update($product, $quantity)
-	{
+	public function update($product, $quantity) {
 		$this->storage->set($product['id'], [
-			'product_id'	=>  (int) $product['id'],
-			'quantity'		=>  (int) $quantity,
+			'product_id' => (int) $product['id'],
+			'quantity' => (int) $quantity,
 		]);
 	}
 
-	public function has($product)
-	{
+	public function has($product) {
 		return $this->storage->exists($product['id']);
 	}
 
-	public function get($product)
-	{
+	public function get($product) {
 		return $this->storage->get($product['id']);
 	}
 
-	public function remove($product)
-	{
+	public function remove($product) {
 		return $this->storage->unset($product['id']);
 	}
 
-	public function clear()
-	{
+	public function clear() {
 		$this->storage->clear();
 	}
 
-	public function all()
-	{
+	public function all() {
 		$ids = [];
 		$item = [];
 
 		foreach ($this->storage->all() as $product) {
 			$ids[] = $product['product_id'];
 		}
-		
+
 		if (!empty($ids)) {
 			$products = $this->product->where($ids);
 
@@ -74,8 +65,7 @@ class Basket
 		return $item;
 	}
 
-	public function subTotal()
-	{
+	public function subTotal() {
 		$subTotal = 0;
 
 		foreach ($this->all() as $item) {
@@ -85,12 +75,11 @@ class Basket
 		return $subTotal;
 	}
 
-	public function total()
-	{
+	public function total() {
 		$total = 0;
 
 		if (!empty($this->subTotal())) {
-			
+
 			$tax = '';
 
 			$totalTax = $tax * $this->subTotal();
